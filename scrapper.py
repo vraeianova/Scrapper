@@ -8,11 +8,11 @@ class GhostManga:
 	def __init__(self):
 		self.url = None
 		self.headers = None
-		self.__certificate_dehabilitation()
+		self.__disable_certificate()
 		self.__set_headers()
 		
 
-	def __certificate_dehabilitation(self):
+	def __disable_certificate(self):
 			
 		ssl._create_default_https_context = ssl._create_unverified_context
 		
@@ -25,6 +25,8 @@ class GhostManga:
 			'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36'
 		}
 		self.headers = browser_headers
+
+		return True
 			
 	def set_manga_url(self,url):
 		self.url = url
@@ -44,15 +46,6 @@ class GhostManga:
 
 			with open(f"Inuyasha-{index}.webp", "wb") as f:
 				f.write(image)
-		# for image_url in extracted_urls[0]:
-		# 	# print("url-",image_url)
-		# 	# urlretrieve(f'{image_url}', "Inuyasha.jpg")
-		# 	req = Request(image_url, headers=headers)
-		# 	image = urlopen(req).read()
-
-		# 	with open("Inuyasha.webp", "wb") as f:
-		# 		f.write(image)
-
 		return True
 
 	def get_chapter(self):		
@@ -72,11 +65,7 @@ def run():
 		
 	new_manga = GhostManga()
 	new_manga.set_manga_url("https://leermanga.net/capitulo/inuyasha-1.00")
-
 	new_manga.get_chapter()
-
-	print('',new_manga.url)
-
 
 
 if __name__ == '__main__':
